@@ -11,8 +11,8 @@ class Scraper
 
   def get_courses
     # doc = self.get_page
-    # courses = doc.css('.post-holder .post')
-    self.get_page.css('.post-holder .post')
+    # courses = doc.css('.post')
+    self.get_page.css('.post')
   end
 
   def make_courses
@@ -21,7 +21,7 @@ class Scraper
       course = Course.new
       course.title = post.css('h2').text
       course.schedule = post.css('.date').text
-      course.description = post.css('p').description
+      course.description = post.css('p').text
     end
 
   end
