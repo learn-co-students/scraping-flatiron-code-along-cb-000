@@ -23,7 +23,7 @@ class Scraper
   #make_courses
   # iterate over the courses array returned by #get_courses and create a new Course instance out of each array element
   # This method should operate on the collection of course offering Nokogiri XML elements that was returned by the .get_courses method
-  def make_courses 
+  def make_courses
     self.get_courses.each do |post| # grab an array-like collection of course elements from the page
       course = Course.new # make a new Course instance for each course
       course.title = post.css("h2").text # assign scraped title to Course instance
@@ -47,6 +47,8 @@ class Scraper
 
 end
 
+# print all Courses
+Scraper.new.print_courses
 
 
 
