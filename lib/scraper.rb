@@ -5,13 +5,19 @@ require 'pry'
 require_relative './course.rb'
 
 class Scraper
-  # For each iteration over the collection of Nokogiri XML elements returned to us by the doc.css(".post") line, we are making a new instance of the Course class and giving that instance the title, schedule and description extracted from the XML
 
   #get_page
   # use Nokogiri to get the HTML from a web page
   # This method should contain only the code for getting the HTML document
   def get_page
     doc = Nokogiri::HTML(open("http://learn-co-curriculum.github.io/site-for-scraping/courses"))
+  end
+
+  #get_courses
+  # uses a CSS selector to return an array of Nokogiri XML elements representing the courses described on the web page we are scraping
+  # This method should operate on the HTML page (which is the return value of the .get_page method) and return the collection of Nokogiri XML elements that describe each course
+  def get_courses
+    self.get_page.css(".post")
   end
 
   #print_courses
@@ -33,14 +39,15 @@ end
 
 
 
-#get_courses
-# uses a CSS selector to return an array of Nokogiri XML elements representing the courses described on the web page we are scraping
+
 
 #make_courses
 # iterates over the courses array returned by #get_courses and creates a new Course instance out of each array element
 
 
 =begin
+# For each iteration over the collection of Nokogiri XML elements returned to us by the doc.css(".post") line, we are making a new instance of the Course class and giving that instance the title, schedule and description extracted from the XML
+
 # 1. grab an array-like collection of course elements from the page
 doc.css("post").each do |post|
   course = Course.new # 2. make a new Course instance for each course
@@ -49,3 +56,4 @@ doc.css("post").each do |post|
   course.description = post.css("p").text # 5. assign scraped description to Course instance
 end
 binding.pry
+=end
