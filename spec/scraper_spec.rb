@@ -1,3 +1,4 @@
+require 'pry'
 require_relative './spec_helper'
 require_relative '../lib/scraper.rb'
 
@@ -25,6 +26,7 @@ describe "Scraper" do
       course_offerings.each do |course_offering|
         expect(course_offering).to be_a(Nokogiri::XML::Element)
         expect{course_offering.css("h2").text}.to_not raise_error
+        # p course_offering.css("em").text
       end
     end
   end
@@ -33,6 +35,8 @@ describe "Scraper" do
     it "iterates over the courses array returned by #get_courses and creates a new Course instance out of each array element." do
       Course.reset_all
       courses = scraper.make_courses
+      # doesnt seem right. one title attr w/ all the titles in it
+      # p Course.all.size
       expect(Course.all.class).to be(Array)
       expect(Course.all.empty?).not_to be(true)
       Course.all.each do |course|
